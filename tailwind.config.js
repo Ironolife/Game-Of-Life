@@ -5,7 +5,21 @@ module.exports = {
     fontFamily: {
       sans: ['Roboto', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      colors: {
+        green: {
+          100: '#ccffcc',
+          200: '#99ff99',
+          300: '#66ff66',
+          400: '#33ff33',
+          500: '#00ff00',
+          600: '#00cc00',
+          700: '#009900',
+          800: '#006600',
+          900: '#003300',
+        },
+      },
+    },
   },
   variants: {
     extend: {},
