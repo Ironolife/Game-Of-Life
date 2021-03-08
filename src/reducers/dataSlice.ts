@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getRandomTemplate } from '../utils/templates';
+import getRandomTemplate from '../utils/templates';
 
 const ROW = 20;
 const COL = 31;

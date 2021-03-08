@@ -44,8 +44,18 @@ const t6 = [
 
 const templates = [t1, t2, t3, t4, t5, t6];
 
-export const getRandomTemplate = (): boolean[][] => {
-  const template = templates[Math.floor(Math.random() * templates.length)];
+class TemplateIndex {
+  static index = 0;
+
+  static getTemplateIndex(): number {
+    const currentIndex = TemplateIndex.index;
+    TemplateIndex.index = (TemplateIndex.index + 1) % templates.length;
+    return currentIndex;
+  }
+}
+
+const getRandomTemplate = (): boolean[][] => {
+  const template = templates[TemplateIndex.getTemplateIndex()];
 
   const height = template.length;
   const width = Math.max(...template.map((row) => Math.max(...row))) + 1;
@@ -55,3 +65,5 @@ export const getRandomTemplate = (): boolean[][] => {
 
   return data;
 };
+
+export default getRandomTemplate;

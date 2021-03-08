@@ -44,7 +44,7 @@ const Button = ({
 
 const Controls = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [speed, setSpeed] = useState<500 | 250 | 125>(250);
+  const [speed, setSpeed] = useState<500 | 250 | 125>(125);
   const dispatch = useAppDispatch();
   const livingCells = useSelector((state: RootState) => state.data.livingCells);
 
