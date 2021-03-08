@@ -9,7 +9,7 @@
     @apply h-full;
   }
   #root {
-    @apply relative flex flex-col bg-gray-800 text-green-500 font-mono;
+    @apply flex flex-col bg-gray-800 text-green-500 font-mono;
   }
   button,
   input {

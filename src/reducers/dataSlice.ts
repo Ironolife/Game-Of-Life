@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getRandomTemplate } from '../utils/templates';
 
 const ROW = 20;
-const COL = 40;
+const COL = 31;
 
 export type Pos = { y: number; x: number };
 

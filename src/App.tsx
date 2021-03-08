@@ -7,7 +7,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <main style={{ flex: '1 0 auto' }}>
+      <main className='relative' style={{ flex: '1 0 auto' }}>
         <View />
         <Controls />
       </main>

@@ -16,7 +16,7 @@ const Cell = ({ value, pos }: CellProps) => {
 
   return (
     <div
-      className={'h-8 w-8' + (value ? ' ' + 'bg-green-500' : '')}
+      className={'h-6 w-6 md:h-8 md:w-8' + (value ? ' ' + 'bg-green-500' : '')}
       onClick={handleClick}
     />
   );

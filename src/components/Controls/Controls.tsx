@@ -29,7 +29,7 @@ const Button = ({
   return (
     <button
       className={
-        'p-2 mb-2 last:mb-0 text-white' +
+        'p-2 mr-2 md:mr-0 md:mb-2 last:m-0 text-white' +
         (isActive ? ' ' + 'bg-pink-700' : ' ' + 'bg-pink-500') +
         (disabled ? ' ' + 'opacity-50 pointer-events-none' : '')
       }
@@ -63,69 +63,71 @@ const Controls = () => {
   }, [isPlaying, speed, livingCells]);
 
   return (
-    <div className='relative m-4 p-2 inline-flex flex-col bg-black z-10'>
-      <Button
-        label={isPlaying ? 'stop button' : 'start button'}
-        handleClick={() => setIsPlaying(!isPlaying)}
-        isActive={isPlaying}
-        disabled={!isPlaying && livingCells === 0}
-      >
-        {isPlaying ? <StopIcon size={36} /> : <StartIcon size={36} />}
-      </Button>
-      <Button
-        label='forward button'
-        handleClick={() => dispatch(next())}
-        disabled={isPlaying || livingCells === 0}
-      >
-        <ForwardIcon size={36} />
-      </Button>
-      <Button
-        label='reset button'
-        handleClick={() => {
-          dispatch(reset());
-          setIsPlaying(false);
-        }}
-        disabled={livingCells === 0}
-      >
-        <ResetIcon size={36} />
-      </Button>
-      <Button
-        label='speed button'
-        handleClick={() => {
-          switch (speed) {
-            case 500:
-              setSpeed(250);
-              break;
-            case 250:
-              setSpeed(125);
-              break;
-            case 125:
-              setSpeed(500);
-              break;
-          }
-        }}
-      >
-        {speed === 500 && <SnailIcon size={36} />}
-        {speed === 250 && <TurtleIcon size={36} />}
-        {speed === 125 && <RabbitIcon size={36} />}
-      </Button>
-      <Button
-        label='template button'
-        handleClick={() => dispatch(useRandomTemplate())}
-        disabled={isPlaying}
-      >
-        <RandomIcon size={36} />
-      </Button>
-      <Button label='info button'>
-        <a
-          href='https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life'
-          target='_blank'
-          rel='noreferrer'
-          aria-label='wiki link'
+    <div className='absolute bottom-4 left-1/2 md:bottom-auto md:top-4 md:left-4 transform -translate-x-1/2 md:transform-none'>
+      <div className='relative p-2 inline-flex flex-row md:flex-col bg-black z-10'>
+        <Button
+          label={isPlaying ? 'stop button' : 'start button'}
+          handleClick={() => setIsPlaying(!isPlaying)}
+          isActive={isPlaying}
+          disabled={!isPlaying && livingCells === 0}
         >
-          <InfoIcon size={36} />
-        </a>
-      </Button>
+          {isPlaying ? <StopIcon size={36} /> : <StartIcon size={36} />}
+        </Button>
+        <Button
+          label='forward button'
+          handleClick={() => dispatch(next())}
+          disabled={isPlaying || livingCells === 0}
+        >
+          <ForwardIcon size={36} />
+        </Button>
+        <Button
+          label='reset button'
+          handleClick={() => {
+            dispatch(reset());
+            setIsPlaying(false);
+          }}
+          disabled={livingCells === 0}
+        >
+          <ResetIcon size={36} />
+        </Button>
+        <Button
+          label='speed button'
+          handleClick={() => {
+            switch (speed) {
+              case 500:
+                setSpeed(250);
+                break;
+              case 250:
+                setSpeed(125);
+                break;
+              case 125:
+                setSpeed(500);
+                break;
+            }
+          }}
+        >
+          {speed === 500 && <SnailIcon size={36} />}
+          {speed === 250 && <TurtleIcon size={36} />}
+          {speed === 125 && <RabbitIcon size={36} />}
+        </Button>
+        <Button
+          label='template button'
+          handleClick={() => dispatch(useRandomTemplate())}
+          disabled={isPlaying}
+        >
+          <RandomIcon size={36} />
+        </Button>
+        <Button label='info button'>
+          <a
+            href='https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life'
+            target='_blank'
+            rel='noreferrer'
+            aria-label='wiki link'
+          >
+            <InfoIcon size={36} />
+          </a>
+        </Button>
+      </div>
     </div>
   );
 };
