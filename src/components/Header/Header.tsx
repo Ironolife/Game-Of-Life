@@ -1,7 +1,7 @@
 import pk from '../../../package.json';
 
 const Header = () => (
-  <header className='p-4 flex-shrink-0 flex bg-black'>
+  <header className='p-4 flex-shrink-0 flex bg-black z-10'>
     <h1>John Conway's Game of Life</h1>
     <div className='flex-1' />
     <a
