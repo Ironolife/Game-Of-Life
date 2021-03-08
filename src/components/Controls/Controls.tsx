@@ -29,7 +29,7 @@ const Button = ({
   return (
     <button
       className={
-        'p-2 mr-2 md:mr-0 md:mb-2 last:m-0 text-white' +
+        'p-2 mr-2 lg:mr-0 lg:mb-2 last:m-0 text-white' +
         (isActive ? ' ' + 'bg-pink-700' : ' ' + 'bg-pink-500') +
         (disabled ? ' ' + 'opacity-50 pointer-events-none' : '')
       }
@@ -63,8 +63,8 @@ const Controls = () => {
   }, [isPlaying, speed, livingCells]);
 
   return (
-    <div className='absolute bottom-4 left-1/2 md:bottom-auto md:top-4 md:left-4 transform -translate-x-1/2 md:transform-none'>
-      <div className='relative p-2 inline-flex flex-row md:flex-col bg-black z-10'>
+    <div className='absolute bottom-4 left-1/2 lg:bottom-auto lg:top-4 lg:left-4 transform -translate-x-1/2 lg:transform-none'>
+      <div className='relative p-2 inline-flex flex-row lg:flex-col bg-black z-10'>
         <Button
           label={isPlaying ? 'stop button' : 'start button'}
           handleClick={() => setIsPlaying(!isPlaying)}
