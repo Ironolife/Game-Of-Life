@@ -1,10 +1,11 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { next, reset } from '../../reducers/dataSlice';
+import { next, reset, useRandomTemplate } from '../../reducers/dataSlice';
 import { RootState, useAppDispatch } from '../../store';
 import ForwardIcon from '../icons/ForwardIcon';
 import InfoIcon from '../icons/InfoIcon';
 import RabbitIcon from '../icons/RabbitIcon';
+import RandomIcon from '../icons/RandomIcon';
 import ResetIcon from '../icons/ResetIcon';
 import SnailIcon from '../icons/SnailIcon';
 import StartIcon from '../icons/StartIcon';
@@ -43,7 +44,7 @@ const Button = ({
 
 const Controls = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [speed, setSpeed] = useState<1000 | 500 | 250>(1000);
+  const [speed, setSpeed] = useState<500 | 250 | 125>(250);
   const dispatch = useAppDispatch();
   const livingCells = useSelector((state: RootState) => state.data.livingCells);
 
@@ -92,21 +93,28 @@ const Controls = () => {
         label='speed button'
         handleClick={() => {
           switch (speed) {
-            case 1000:
-              setSpeed(500);
-              break;
             case 500:
               setSpeed(250);
               break;
             case 250:
-              setSpeed(1000);
+              setSpeed(125);
+              break;
+            case 125:
+              setSpeed(500);
               break;
           }
         }}
       >
-        {speed === 1000 && <SnailIcon size={36} />}
-        {speed === 500 && <TurtleIcon size={36} />}
-        {speed === 250 && <RabbitIcon size={36} />}
+        {speed === 500 && <SnailIcon size={36} />}
+        {speed === 250 && <TurtleIcon size={36} />}
+        {speed === 125 && <RabbitIcon size={36} />}
+      </Button>
+      <Button
+        label='template button'
+        handleClick={() => dispatch(useRandomTemplate())}
+        disabled={isPlaying}
+      >
+        <RandomIcon size={36} />
       </Button>
       <Button label='info button'>
         <a

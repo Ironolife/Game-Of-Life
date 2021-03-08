@@ -1,18 +1,17 @@
 import { useSelector } from 'react-redux';
-import { toggleValue } from '../../reducers/dataSlice';
+import { Pos, toggleValue } from '../../reducers/dataSlice';
 import { RootState, useAppDispatch } from '../../store';
 
 interface CellProps {
   value: boolean;
-  x: number;
-  y: number;
+  pos: Pos;
 }
 
-const Cell = ({ value, x, y }: CellProps) => {
+const Cell = ({ value, pos }: CellProps) => {
   const dispatch = useAppDispatch();
 
   const handleClick = () => {
-    dispatch(toggleValue({ x, y }));
+    dispatch(toggleValue(pos));
   };
 
   return (
@@ -36,7 +35,7 @@ const View = () => {
               className='flex justify-center divide-x divide-gray-600'
             >
               {row.map((col, x) => (
-                <Cell key={x} value={col} x={x} y={y} />
+                <Cell key={x} value={col} pos={{ y, x }} />
               ))}
             </div>
           ))}
