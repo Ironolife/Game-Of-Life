@@ -23,6 +23,7 @@ const Button = ({
   isActive = false,
   disabled = false,
   children,
+  label,
 }: PropsWithChildren<ButtonProps>) => {
   return (
     <button
@@ -33,6 +34,7 @@ const Button = ({
       }
       onClick={handleClick}
       disabled={disabled}
+      aria-label={label}
     >
       {children}
     </button>
@@ -111,6 +113,7 @@ const Controls = () => {
           href='https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life'
           target='_blank'
           rel='noreferrer'
+          aria-label='wiki link'
         >
           <InfoIcon size={36} />
         </a>
