@@ -1,6 +1,6 @@
-import { getEmptyShape } from '../reducers/dataSlice';
+export type Template = number[][];
 
-const t1 = [
+const t1: Template = [
   [2, 3, 4, 8, 9, 10],
   [],
   [0, 5, 7, 12],
@@ -16,7 +16,7 @@ const t1 = [
   [2, 3, 4, 8, 9, 10],
 ];
 
-const t2 = [
+const t2: Template = [
   [4, 5, 6, 7],
   [],
   [2, 3, 4, 5, 6, 7, 8, 9],
@@ -28,13 +28,21 @@ const t2 = [
   [4, 5, 6, 7],
 ];
 
-const t3 = [[1, 2], [1, 5, 6], [2, 4, 6], [], [0, 2, 4], [0, 1, 5], [4, 5]];
+const t3: Template = [
+  [1, 2],
+  [1, 5, 6],
+  [2, 4, 6],
+  [],
+  [0, 2, 4],
+  [0, 1, 5],
+  [4, 5],
+];
 
-const t4 = [[1], [0, 1, 2], [1]];
+const t4: Template = [[1], [0, 1, 2], [1]];
 
-const t5 = [[0, 1], [1], [1], [1, 2]];
+const t5: Template = [[0, 1], [1], [1], [1, 2]];
 
-const t6 = [
+const t6: Template = [
   [2, 3],
   [2, 3],
   [1, 4],
@@ -42,7 +50,7 @@ const t6 = [
   [0, 2, 3],
 ];
 
-const templates = [t1, t2, t3, t4, t5, t6];
+const templates: Template[] = [t1, t2, t3, t4, t5, t6];
 
 class TemplateIndex {
   static index = 0;
@@ -54,16 +62,7 @@ class TemplateIndex {
   }
 }
 
-const getRandomTemplate = (): boolean[][] => {
-  const template = templates[TemplateIndex.getTemplateIndex()];
-
-  const height = template.length;
-  const width = Math.max(...template.map((row) => Math.max(...row))) + 1;
-  const data = getEmptyShape(height, width);
-
-  template.forEach((row, y) => row.forEach((x) => (data[y][x] = true)));
-
-  return data;
-};
+const getRandomTemplate = (): Template =>
+  templates[TemplateIndex.getTemplateIndex()];
 
 export default getRandomTemplate;

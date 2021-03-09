@@ -1,22 +1,19 @@
 export interface IconProps {
-  size?: number;
+  className?: string;
   fill?: string;
 }
 
 const Icon = ({
-  size = 24,
+  className,
   fill = 'currentColor',
   d,
 }: IconProps & { d: string }) => {
   return (
-    <svg
-      viewBox='0 0 24 24'
-      fill={fill}
-      width={`${size}px`}
-      height={`${size}px`}
-    >
-      <path d={d} />
-    </svg>
+    <div className={className ? className : 'h-6 w-6 md:h-8 md:w-8'}>
+      <svg viewBox='0 0 24 24' fill={fill} width='100%' height='100%'>
+        <path d={d} />
+      </svg>
+    </div>
   );
 };
 

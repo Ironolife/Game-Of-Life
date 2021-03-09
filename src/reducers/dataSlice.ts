@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import getRandomTemplate from '../utils/templates';
+import { Template } from '../utils/templates';
 
 const ROW = 20;
 const COL = 31;
 
+export type Data = boolean[][];
 export type Pos = { y: number; x: number };
 
-export const getEmptyShape = (height: number, width: number) =>
+export const getEmptyShape = (height: number, width: number): Data =>
   Array(height)
     .fill(null)
     .map(() =>
@@ -16,11 +17,13 @@ export const getEmptyShape = (height: number, width: number) =>
     );
 
 type DataSliceState = {
-  data: boolean[][];
+  startData: Data | null;
+  data: Data;
   livingCells: number;
 };
 
 const initialState: DataSliceState = {
+  startData: null,
   data: getEmptyShape(ROW, COL),
   livingCells: 0,
 };
@@ -30,7 +33,7 @@ const initialState: DataSliceState = {
 // Any live cell with more than three live neighbours dies, as if by overpopulation.
 // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-const getLivingNeighbours = (state: boolean[][], { y, x }: Pos): number => {
+const getLivingNeighbours = (state: Data, { y, x }: Pos): number => {
   let count = 0;
 
   const top = y - 1;
@@ -69,11 +72,7 @@ const getLivingNeighbours = (state: boolean[][], { y, x }: Pos): number => {
   return count;
 };
 
-const getNextCellState = (
-  state: boolean[][],
-  value: boolean,
-  pos: Pos
-): boolean => {
+const getNextCellState = (state: Data, value: boolean, pos: Pos): boolean => {
   const livingNeighbours = getLivingNeighbours(state, pos);
 
   if (value) {
@@ -85,17 +84,39 @@ const getNextCellState = (
   }
 };
 
-const getNextState = (state: DataSliceState): DataSliceState => {
+const getNextState = ({ startData, data }: DataSliceState): DataSliceState => {
   let livingCells = 0;
-  const data = state.data.map((row, y) =>
+  const newData = data.map((row, y) =>
     row.map((col, x) => {
-      const cellState = getNextCellState(state.data, col, { y, x });
+      const cellState = getNextCellState(data, col, { y, x });
       if (cellState) livingCells += 1;
       return cellState;
     })
   );
 
-  return { data, livingCells };
+  return { startData, data: newData, livingCells };
+};
+
+export const templateToData = (
+  template: Template,
+  maxRow: number,
+  maxCol: number
+): Data | null => {
+  const height = template.length;
+  const width = Math.max(...template.map((row) => Math.max(...row))) + 1;
+  if (height > maxRow || width > maxCol) return null;
+
+  const data = getEmptyShape(maxRow, maxCol);
+
+  // position shape at center
+  const yOffSet = Math.floor((maxRow - height) / 2);
+  const xOffSet = Math.floor((maxCol - width) / 2);
+
+  template.forEach((row, y) =>
+    row.forEach((x) => (data[y + yOffSet][x + xOffSet] = true))
+  );
+
+  return data;
 };
 
 const dataSlice = createSlice({
@@ -105,40 +126,38 @@ const dataSlice = createSlice({
     toggleValue: (state, { payload: { y, x } }: PayloadAction<Pos>) => {
       state.data[y][x] = !state.data[y][x];
       state.data[y][x] ? (state.livingCells += 1) : (state.livingCells -= 1);
+      state.startData = state.data;
     },
     next: (state) => getNextState(state),
-    useRandomTemplate: () => {
-      const template = getRandomTemplate();
-      const h = template.length;
-      const w = template[0].length;
+    useTemplate: (_, { payload: template }: PayloadAction<Template>) => {
+      const data = templateToData(template, ROW, COL);
+      if (!data) return;
 
-      if (h > ROW || w > COL) return;
+      const livingCells = template.reduce((acc, cur) => acc + cur.length, 0);
 
-      const data = getEmptyShape(ROW, COL);
-
-      // position shape at center
-      const yOffSet = Math.floor((ROW - h) / 2);
-      const xOffSet = Math.floor((COL - w) / 2);
-
-      template.forEach((row, y) =>
-        row.forEach((col, x) => (data[y + yOffSet][x + xOffSet] = col))
-      );
-
-      const livingCells = template.reduce(
-        (acc, cur) => acc + cur.filter((col) => col).length,
-        0
-      );
-
-      return { data, livingCells };
+      return { startData: data, data, livingCells };
     },
-    reset: () => initialState,
+    reset: ({ startData }) => {
+      if (startData) {
+        return {
+          startData,
+          data: startData,
+          livingCells: startData.reduce(
+            (acc, cur) => acc + cur.filter((cur) => cur).length,
+            0
+          ),
+        };
+      }
+    },
+    clear: () => initialState,
   },
 });
 
 export const {
   toggleValue,
   next,
-  useRandomTemplate,
+  useTemplate,
   reset,
+  clear,
 } = dataSlice.actions;
 export default dataSlice.reducer;
