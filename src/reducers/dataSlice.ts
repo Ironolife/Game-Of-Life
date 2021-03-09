@@ -41,9 +41,9 @@ const getLivingNeighbours = (state: Data, { y, x }: Pos): number => {
   const left = x - 1;
   const right = x + 1;
 
-  const hasTop = top > 0;
+  const hasTop = top >= 0;
   const hasBottom = bottom < ROW;
-  const hasLeft = left > 0;
+  const hasLeft = left >= 0;
   const hasRight = right < COL;
 
   if (hasTop) {
