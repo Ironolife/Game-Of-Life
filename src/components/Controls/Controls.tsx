@@ -175,23 +175,25 @@ const Share = ({ url }: ShareProps) => {
           borderColor: 'transparent black transparent transparent',
         }}
       />
-      <div className='flex items-center p-2 text-white bg-black'>
-        <input className='px-2' value={url} disabled />
-        <button
-          className='ml-2'
-          aria-label='Copy'
-          title='Copy'
-          onClick={handleClick}
-        >
-          <CopyIcon
-            className={
-              'h-5 w-5' +
-              (copied
-                ? ' ' + 'text-green-500'
-                : ' ' + 'transition-colors duration-500 text-white')
-            }
-          />
-        </button>
+      <div className='p-2 bg-black'>
+        <div className='px-4 py-2 flex items-center bg-gray-800'>
+          <input className='bg-transparent text-white' value={url} readOnly />
+          <button
+            className='ml-4'
+            aria-label='Copy'
+            title='Copy'
+            onClick={handleClick}
+          >
+            <CopyIcon
+              className={
+                'h-5 w-5' +
+                (copied
+                  ? ' ' + 'text-green-500'
+                  : ' ' + 'transition-colors duration-500 text-white')
+              }
+            />
+          </button>
+        </div>
       </div>
     </div>
   );
