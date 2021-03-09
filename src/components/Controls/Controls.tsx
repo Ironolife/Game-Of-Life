@@ -23,6 +23,7 @@ import StartIcon from '../icons/StartIcon';
 import StopIcon from '../icons/StopIcon';
 import TemplateIcon from '../icons/TemplateIcon';
 import TurtleIcon from '../icons/TurtleIcon';
+import { useMediaQuery } from 'react-responsive';
 
 interface ButtonProps {
   handleClick?: () => void;
@@ -260,21 +261,24 @@ const Group2 = ({ isPlaying }: ControlsProps) => {
 const Controls = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  return (
+  const isMdUp = useMediaQuery({ query: '(min-width: 768px)' });
+
+  return isMdUp ? (
+    <div className='inline-flex relative m-4 p-2 flex-col bg-black z-10'>
+      <Group1 isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
+      <Group2 isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
+    </div>
+  ) : (
     <>
-      <div className='md:hidden absolute bottom-4 left-1/2 transform -translate-x-1/2'>
+      <div className='absolute bottom-4 left-1/2 transform -translate-x-1/2'>
         <div className='relative p-2 inline-flex bg-black z-10'>
           <Group1 isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
         </div>
       </div>
-      <div className='md:hidden absolute top-4 left-1/2 transform -translate-x-1/2'>
+      <div className='absolute top-4 left-1/2 transform -translate-x-1/2'>
         <div className='relative p-2 inline-flex bg-black z-10'>
           <Group2 isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
         </div>
-      </div>
-      <div className='hidden md:inline-flex relative m-4 p-2 flex-col bg-black z-10'>
-        <Group1 isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
-        <Group2 isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
       </div>
     </>
   );
