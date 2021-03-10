@@ -50,6 +50,7 @@ const Button = ({
       disabled={disabled}
       aria-label={label}
       title={label}
+      type='button'
     >
       {children}
     </button>
