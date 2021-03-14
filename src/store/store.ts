@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
-import dataReducer from './reducers/dataSlice';
+import dataReducer from './reducers/data.reducer';
 
 const store = configureStore({
   reducer: {

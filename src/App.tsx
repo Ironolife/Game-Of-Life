@@ -3,8 +3,8 @@ import Controls from './components/Controls/Controls';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import View from './components/View/View';
-import { useTemplate } from './reducers/dataSlice';
-import { useAppDispatch } from './store';
+import { useTemplate } from './store/reducers/data.reducer';
+import { useAppDispatch } from './store/store';
 import { decodeData } from './utils/encodeData';
 
 const App = () => {

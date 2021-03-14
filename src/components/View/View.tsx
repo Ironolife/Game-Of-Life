@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { Pos, toggleValue } from '../../reducers/dataSlice';
-import { RootState, useAppDispatch } from '../../store';
+import { Pos, toggleValue } from '../../store/reducers/data.reducer';
+import { RootState, useAppDispatch } from '../../store/store';
 
 interface CellProps {
   value: boolean;

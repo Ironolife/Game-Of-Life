@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Template } from '../utils/templates';
+import { Template } from '../../utils/templates';
 
 const ROW = 20;
 const COL = 31;

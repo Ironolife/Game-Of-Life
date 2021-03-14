@@ -1,4 +1,4 @@
-import { Data, templateToData } from '../reducers/dataSlice';
+import { Data, templateToData } from '../store/reducers/data.reducer';
 import { encodeData, decodeData } from './encodeData';
 
 const cases: [number, number, Data][] = Array(20)

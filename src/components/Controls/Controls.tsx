@@ -7,8 +7,13 @@ import {
   useState,
 } from 'react';
 import { useSelector } from 'react-redux';
-import { clear, next, reset, useTemplate } from '../../reducers/dataSlice';
-import { RootState, useAppDispatch } from '../../store';
+import {
+  clear,
+  next,
+  reset,
+  useTemplate,
+} from '../../store/reducers/data.reducer';
+import { RootState, useAppDispatch } from '../../store/store';
 import { encodeData } from '../../utils/encodeData';
 import getRandomTemplate from '../../utils/templates';
 import ClearIcon from '../icons/ClearIcon';

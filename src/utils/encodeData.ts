@@ -1,4 +1,4 @@
-import { Data } from '../reducers/dataSlice';
+import { Data } from '../store/reducers/data.reducer';
 import { Template } from './templates';
 
 export const encodeData = (data: Data): string => {
