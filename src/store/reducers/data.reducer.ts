@@ -123,10 +123,22 @@ const dataSlice = createSlice({
   name: 'dataSlice',
   initialState,
   reducers: {
-    toggleValue: (state, { payload: { y, x } }: PayloadAction<Pos>) => {
-      state.data[y][x] = !state.data[y][x];
-      state.data[y][x] ? (state.livingCells += 1) : (state.livingCells -= 1);
-      state.startData = state.data;
+    toggleValue: (
+      { data, livingCells },
+      { payload: { y, x } }: PayloadAction<Pos>
+    ) => {
+      const newData: Data = data.map((row, _y) =>
+        row.map((col, _x) => {
+          if (y === _y && x == _x) return !col;
+          return col;
+        })
+      );
+
+      return {
+        startData: newData,
+        data: newData,
+        livingCells: newData[y][x] ? livingCells + 1 : livingCells - 1,
+      };
     },
     next: (state) => getNextState(state),
     useTemplate: (_, { payload: template }: PayloadAction<Template>) => {
